@@ -1,40 +1,33 @@
 vibrioCholeraeSegment = "atcaatgatcaacgtaagcttctaagcatgatcaaggtgctcacacagtttatccacaacctgagtggatgacatcaagataggtcgttgtatctccttcctctcgtactctcatgaccacggaaagatgatcaagagaggatgatttcttggccatatcgcaatgaatacttgtgacttgtgcttccaattgacatcttcagcgccatattgcgctggccaaggtgacggagcgggattacgaaagcatgatcatggctgttgttctgtttatcttgttttgactgagacttgttaggatagacggtttttcatcactgactagccaaagccttactctgcctgacatcgaccgtaaattgataatgaatttacatgcttccgcgacgatttacctcttgatcatcgatccgattgaagatcttcaattgttaattctcttgcctcgactcatagccatgatgagctcttgatcatgtttccttaaccctctattttttacggaagaatgatcaagctgctgctcttgatcatcgtttc"
-
-nucleotideList = list(vibrioCholeraeSegment)
-start = 0
-dnaLength = len(nucleotideList)
-segmentDict = {}
-
-while start < dnaLength - 8:
-    segmentStart = start
-    segmentEnd = start + 9
-    segmentString = ""
-
-    while segmentStart != segmentEnd:
-        segmentString = segmentString + nucleotideList[segmentStart]
-        segmentStart += 1
-        print(segmentString)
     
-    
-    if segmentString in segmentDict:
-        #print("hey!  : " + segmentString)
-        #segmentDict[segmentString] = 0
-        #print(segmentDict[segmentString])
-        segmentDict[segmentString] += 1
-    else:
-        segmentDict[segmentString] = 0
-    print(segmentDict[segmentString])
-    #if segmentString in segmentDict:
-    #    timeToAdd = segmentDict[segmentString]
-    #    timeToAdd += 1
-    #    segmentDict[segmentString] = timeToAdd
-    #else:
-    #    segmentDict[segmentString] = 0
-    start += 1
+def frequentKmer(dna, kmer):
 
-x = segmentDict.keys()
-#print(x)
+    nucleotideList = list(dna)
+    start = 0
+    dnaLength = len(nucleotideList)
+    segmentDict = {}
+
+    #Collects segments of DNA in length of kmer and counts how frequently  
+    while start < dnaLength - kmer - 1:
+        segmentStart = start
+        segmentEnd = start + kmer
+        segmentString = ""
+
+        while segmentStart != segmentEnd:
+            segmentString = segmentString + nucleotideList[segmentStart]
+            segmentStart += 1
+        
+        if segmentString in segmentDict:
+            segmentDict[segmentString] += 1
+        else:
+            segmentDict[segmentString] = 0
+        start += 1
+
+    #finds most repeated kmer
+    largestRepeatingKmer = max(segmentDict, key=segmentDict.get)
+    return largestRepeatingKmer
 
 
 
-
+x = frequentKmer(vibrioCholeraeSegment, 9)
+print(x)
