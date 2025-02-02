@@ -27,7 +27,5 @@ def frequentKmer(dna, kmer):
     largestRepeatingKmer = max(segmentDict, key=segmentDict.get)
     return largestRepeatingKmer
 
-
-
 x = frequentKmer(vibrioCholeraeSegment, 9)
 print(x)
