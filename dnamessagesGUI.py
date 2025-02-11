@@ -1,6 +1,11 @@
-# create gui
-# store previous info in a csv file
 import csv
+import tkinter as tk
+
+m = tk.Tk()
+
+m.mainloop()
+
+vibrioCholeraeSegment = "atcaatgatcaacgtaagcttctaagcatgatcaaggtgctcacacagtttatccacaacctgagtggatgacatcaagataggtcgttgtatctccttcctctcgtactctcatgaccacggaaagatgatcaagagaggatgatttcttggccatatcgcaatgaatacttgtgacttgtgcttccaattgacatcttcagcgccatattgcgctggccaaggtgacggagcgggattacgaaagcatgatcatggctgttgttctgtttatcttgttttgactgagacttgttaggatagacggtttttcatcactgactagccaaagccttactctgcctgacatcgaccgtaaattgataatgaatttacatgcttccgcgacgatttacctcttgatcatcgatccgattgaagatcttcaattgttaattctcttgcctcgactcatagccatgatgagctcttgatcatgtttccttaaccctctattttttacggaagaatgatcaagctgctgctcttgatcatcgtttc"
 
 def recallInfo(option):
     with open('savedData.csv', mode ='r')as file:
@@ -12,9 +17,8 @@ def recallInfo(option):
         if option == "previous":
             for lines in csvFile:
                 if lines[0] == "previous":        
-                    return lines[1]
-                
-        if option == "saveOne":
+                    return lines[1]    
+        elif option == "saveOne":
             savedRow = rows[1]
             if savedRow[1] == "null":
                 return nothing
@@ -32,9 +36,40 @@ def recallInfo(option):
                 return nothing
             else:
                 return savedRow[1]
-            
-        elif option == "addData":
-            pass
-            
 
-print(recallInfo("saveOne"))
+def saveInfo(option, data):
+
+        with open('savedData.csv', mode ='r') as file:
+            csvFile = csv.reader(file)
+            rows = list(csvFile)
+
+            if option == 1:
+                rows[1] = ['saveOne', data]
+            if option == 2:
+                rows[2] = ['saveTwo', data]
+            if option == 3:
+                rows[3] = ['saveThree', data]
+
+        file = open('savedData.csv', 'w+')
+ 
+        with file:    
+            write = csv.writer(file)
+            write.writerows(rows)
+                    
+
+saveInfo(1, vibrioCholeraeSegment)
+        
+        
+
+
+
+    
+    
+
+
+        
+
+    
+         
+
+
